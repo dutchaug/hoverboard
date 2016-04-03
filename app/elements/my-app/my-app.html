@@ -1,0 +1,128 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<!-- App Theme -->
+<link rel="import" href="../../themes/{$ config.appTheme $}/theme.html">
+
+<!-- Iron elements -->
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+
+<!-- Paper elements -->
+<link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+
+<!-- Custom elements -->
+<link rel="import" href="../home-page/home-page.html">
+
+<dom-module id="my-app">
+
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        --paper-toolbar-background: transparent;
+      }
+
+      .container {
+        height: 100%;
+      }
+
+      .header-panel {
+        @apply(--layout-fit);
+      }
+
+      .toolbar[shadow] {
+        background: transparent;
+        will-change: background;
+        transition: background 0.4s;
+      }
+
+      .toolbar[shadow] {
+        background: #fff;
+      }
+
+      .toolbar::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -5px;
+        width: 100%;
+        height: 5px;
+        pointer-events: none;
+        opacity: 0;
+        will-change: opacity;
+        transition: opacity 0.4s;
+        -webkit-transform: translateZ(0);
+        box-shadow: inset 0 5px 2px -3px rgba(0, 0, 0, 0.2);
+      }
+
+      .toolbar[shadow]::after {
+        opacity: 1;
+      }
+
+      .logo-wrapper {
+        @apply(--layout-vertical);
+        @apply(--layout-center-center);
+        margin-left: 20px;
+      }
+
+      .logo {
+        width: 130px;
+        height: 40px;
+      }
+    </style>
+
+    <iron-localstorage id="localStorage" name="{$ config.appName $}"
+                       value="{{storage}}"
+                       on-iron-localstorage-load-empty="initializeDefaultStorage">
+    </iron-localstorage>
+
+    <paper-scroll-header-panel id="headerPanelMain" class="header-panel" main condenses header-state="{{_scrolled}}" condensed-header-height="64">
+
+      <!-- Main Toolbar -->
+      <!--<paper-toolbar class="toolbar" shadow$="{{_scrollTop}}">-->
+          <!--<a class="logo-wrapper" data-route="home" href="/">-->
+            <!--<iron-image class="logo" src="/images/logo.svg" sizing="contain"-->
+                        <!--alt="{$ title $}"></iron-image>-->
+          <!--</a>-->
+      <!--</paper-toolbar>-->
+
+      <div class="container">
+        <home-page></home-page>
+      </div>
+
+    </paper-scroll-header-panel>
+
+    <paper-toast id="confirmToast" class="Toast" duration="10000">
+      <span class="Toast-button" role="button" tabindex="0" on-tap="onConfirmToastTap">OK</span>
+    </paper-toast>
+
+    <paper-toast id="infoToast" class="Toast" duration="8000"></paper-toast>
+  </template>
+
+  <script src="my-app.js"></script>
+
+</dom-module>

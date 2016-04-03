@@ -75,7 +75,7 @@ gulp.task('copy', function() {
     '!app/cache-config.json',
     '!app/content',
     '!app/manifest.json',
-    '!app/metadata',
+    '!app/metadata.js',
     '!app/test',
     '!app/views',
     '!**/.DS_Store'
@@ -93,36 +93,21 @@ gulp.task('copy', function() {
     'app/elements/*-bundle.html'
   ]).pipe(gulp.dest('dist/elements'));
 
-  var assets = gulp.src([
-    'app/assets/*'
-  ]).pipe(gulp.dest('dist/assets'));
-
-  var data = gulp.src([
-    'app/data/*'
-  ]).pipe(gulp.dest('dist/data'));
-
-  var posts = gulp.src([
-    'app/posts/*'
-  ]).pipe(gulp.dest('dist/posts'));
-
-  var icons = gulp.src(['app/themes/' + config.theme + '/icons.html'])
-    .pipe(gulp.dest('dist/themes/' + config.theme));
-
-  var components = gulp.src(['app/themes/' + config.theme + '/components/*.html'])
-    .pipe(gulp.dest('dist/themes/' + config.theme + '/components'));
+  var icons = gulp.src(['app/themes/' + config.appTheme + '/icons.html'])
+    .pipe(gulp.dest('dist/themes/' + config.appTheme));
 
   var scripts = gulp.src(['app/scripts/analytics.js'])
     .pipe(gulp.dest('dist/scripts'));
 
-  return merge(app, bower, elements, assets, data, posts, icons, components, scripts)
+  return merge(app, bower, elements, icons, scripts)
     .pipe($.size({title: 'Copy files to dist dir:'}));
 });
 
 // Copy web fonts to dist
 gulp.task('fonts', function() {
-  return gulp.src(['app/themes/' + config.theme + '/fonts/**/*.{css,woff,woff2}'])
-    .pipe(gulp.dest('dist/themes/' + config.theme + '/fonts'))
-    .pipe($.size({title: 'Copy fonts to dist/themes/' + config.theme + '/fonts dir:'}));
+  return gulp.src(['app/themes/' + config.appTheme + '/fonts/**/*.{css,woff,woff2}'])
+    .pipe(gulp.dest('dist/themes/' + config.appTheme + '/fonts'))
+    .pipe($.size({title: 'Copy fonts to dist/themes/' + config.appTheme + '/fonts dir:'}));
 });
 
 // Scan your HTML for assets & optimize them
@@ -175,7 +160,7 @@ gulp.task('vulcanize', function() {
     // Remove CSS comments
     .pipe($.if('*.html', $.stripCssComments({preserve: false})))
     // Minify base-bundle.js
-    // .pipe($.if('*.js', $.uglify()))
+    .pipe($.if('*.js', $.uglify()))
     .pipe(gulp.dest('dist/elements'))
     .pipe($.size({title: 'Copy vulcanized elements to dist/elements dir:'}));
 });
@@ -189,9 +174,9 @@ gulp.task('vulcanize', function() {
 // for more context.
 gulp.task('cache-config', function(callback) {
   var dir = 'dist';
-  var config = {
-    cacheId: packageJson.name || path.basename(__dirname),
-    disabled: false
+  var cacheConfig = {
+    cacheId: config.appName,
+    disabled: config.serviceWorker.cacheDisabled
   };
 
   // URL’s with Query String parameters are treated as individual URL’s and
@@ -203,19 +188,19 @@ gulp.task('cache-config', function(callback) {
     './?utm_source=web_app_manifest',
     './',
     'bower_components/webcomponentsjs/webcomponents-lite.min.js',
-    '{elements,scripts,themes,data,posts}/**/*.*'],
+    '{elements,scripts,themes}/**/*.*'],
     {cwd: dir}, function(error, files) {
     if (error) {
       callback(error);
     } else {
-      config.precache = files;
+      cacheConfig.precache = files;
 
       var md5 = crypto.createHash('md5');
-      md5.update(JSON.stringify(config.precache));
-      config.precacheFingerprint = md5.digest('hex');
+      md5.update(JSON.stringify(cacheConfig.precache));
+      cacheConfig.precacheFingerprint = md5.digest('hex');
 
       var configPath = path.join(dir, 'cache-config.json');
-      fs.writeFile(configPath, JSON.stringify(config), callback);
+      fs.writeFile(configPath, JSON.stringify(cacheConfig), callback);
     }
   });
 });
@@ -226,13 +211,13 @@ gulp.task('clean', function(cb) {
 });
 
 // Watch files for changes & reload
-gulp.task('serve', ['js', 'lint', 'lint-js', 'styles'], function() {
+gulp.task('serve', ['js', 'lint', 'lint-js', 'manifest', 'styles'], function() {
   browserSync({
     browser: config.browserSync.browser,
     https: config.browserSync.https,
     notify: config.browserSync.notify,
     port: config.browserSync.port,
-    logPrefix: 'Hoverboard',
+    logPrefix: 'dfua-pre',
     snippetOptions: {
       rule: {
         match: '<span id="browser-sync-binding"></span>',
@@ -254,9 +239,9 @@ gulp.task('serve', ['js', 'lint', 'lint-js', 'styles'], function() {
     'app/*.html',
     'app/views/**/*.html',
     'app/content/**/*.md',
-    'app/metadata/*.js'
+    'app/metadata.js'
   ], ['styles', reload]);
-  gulp.watch(['app/{elements,themes}/**/*.{css,html}'], ['styles', 'lint-js', 'js', reload]);
+  gulp.watch(['app/{elements,themes}/**/*.{css,html}'], ['styles', reload]);
   gulp.watch(['app/themes/**/*.js'], ['styles', reload]);
   gulp.watch(['app/{elements,scripts}/**/*.js'], ['lint-js', 'js']);
   gulp.watch(['app/images/**/*'], reload);
@@ -269,7 +254,7 @@ gulp.task('serve:dist', ['default'], function() {
     https: config.browserSync.https,
     notify: config.browserSync.notify,
     port: config.browserSync.port,
-    logPrefix: 'Hoverboard',
+    logPrefix: 'PSK+',
     snippetOptions: {
       rule: {
         match: '<span id="browser-sync-binding"></span>',
@@ -305,10 +290,13 @@ gulp.task('fix-paths-before-revision', require(task('fix-paths'))($, gulp, merge
 gulp.task('fix-paths-after-revision', require(task('fix-paths'))($, gulp, merge, 'after'));
 
 // Transpile all JS from ES2015 (ES6) to ES5
-gulp.task('js', ['views'], require(task('js-babel'))($, gulp));
+gulp.task('js', require(task('js-babel'))($, gulp));
 
 // Lint CSS and JavaScript
 gulp.task('lint', require(task('lint'))($, gulp, merge));
+
+// Add colors to Web Application Manifest - manifest.json
+gulp.task('manifest', require(task('manifest'))($, config, gulp));
 
 // Minify JavaScript in dist directory
 gulp.task('minify-dist', require(task('minify-dist'))($, gulp, merge));
@@ -320,7 +308,7 @@ gulp.task('revision', require(task('revision'))($, gulp));
 gulp.task('serve:gae', ['default'], require(task('serve-gae'))($, gulp));
 
 // Transform styles with PostCSS
-gulp.task('styles', require(task('styles-postcss'))($, config, gulp, merge));
+gulp.task('styles', ['views'], require(task('styles-postcss'))($, config, gulp, merge));
 
 // Compile HTML files with Nunjucks templating engine
 gulp.task('views', require(task('views-nunjucks'))($, config, gulp));
@@ -328,7 +316,7 @@ gulp.task('views', require(task('views-nunjucks'))($, config, gulp));
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function(cb) {
   runSequence(
-    ['copy', 'js', 'lint-js', 'lint', 'styles'],
+    ['copy', 'js', 'lint-js', 'lint', 'manifest', 'styles'],
     ['fonts', 'html', 'images'],
     'vulcanize',
     'clean-dist',

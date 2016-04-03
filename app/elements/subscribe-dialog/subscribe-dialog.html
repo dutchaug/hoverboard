@@ -1,0 +1,61 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-shared-styles.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="subscribe-dialog">
+
+  <template>
+
+    <style include="paper-dialog-shared-styles"></style>
+    <style>
+
+      paper-dialog-scrollable {
+        width: 80vw;
+        min-height: 350px;
+      }
+
+      paper-button[dialog-dismiss] {
+        color: var(--primary-text-color);
+      }
+
+      .primary {
+        background: var(--primary-color);
+        color: var(--text-primary-color);
+        transition: background 0.5s;
+      }
+
+      .primary[disabled] {
+        background: var(--disabled--color);
+      }
+
+    </style>
+    <paper-dialog-scrollable>
+      <form id="subscribeForm" class="info"
+            action="[[action]]"
+            method="post" name="mc-embedded-subscribe-form"
+            target="_blank" novalidate>
+        <h2 class="subscribe-header">Subscribe</h2>
+        <p class="description">No spam, only the latest news and updates!</p>
+        <paper-input label="First Name" always-float-label placeholder="Chuck" name="FNAME"></paper-input>
+        <paper-input label="Last Name" always-float-label placeholder="Norris" name="LNAME"></paper-input>
+        <paper-input type="email" label="E-mail" auto-validate always-float-label
+                     placeholder="gmail@chucknorris.com" invalid="{{invalid}}" name="EMAIL"></paper-input>
+        <div style="position: absolute; left: -5000px;" aria-hidden="true">
+          <input type="text" name="[[name]]" tabindex="-1" value="">
+        </div>
+        <div class="buttons">
+          <paper-button dialog-dismiss>Cancel</paper-button>
+          <paper-button dialog-confirm class="primary" on-tap="subscribe" disabled="{{invalid}}">Submit</paper-button>
+        </div>
+      </form>
+    </paper-dialog-scrollable>
+  </template>
+
+  <script src="subscribe-dialog.js"></script>
+
+</dom-module>

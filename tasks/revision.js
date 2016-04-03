@@ -13,20 +13,16 @@ module.exports = function ($, gulp) { return function () {
     /^\/app.yaml/g,
     /^\/cache-config.json/g,
     /^\/index.html/g,
-    /^\/sw-import.js/g,
-    '.markdown',
-    '.pdf'
+    /^\/sw-import.js/g
   ], dontUpdateReference: [
     /^\/app.yaml/g,
     /^\/cache-config.json/g,
     /^\/index.html/g,
-    /^\/sw-import.js/g,
-    '.markdown',
-    '.pdf'
+    /^\/sw-import.js/g
   ]});
 
   return gulp.src('dist/**')
-    //.pipe(revAll.revision())
+    .pipe(revAll.revision())
     .pipe(gulp.dest('deploy'))
     .pipe($.size({title: 'deploy'}));
 };};

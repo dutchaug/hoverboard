@@ -1,7 +1,19 @@
 var execSync = require('child_process').execSync,
-    gitDescribe = execSync('git describe --tags').toString().replace(/(\r\n|\n|\r)/gm, '');
+    appVersion = null;
+
+try {
+  appVersion = execSync('git describe --tags').toString().replace(/(\r\n|\n|\r)/gm, '');
+} catch(e) {
+  console.log('Warning: Can\'t run "git describe" for determine app version');
+}
 
 module.exports = {
+  // App name is used for iron-localstorage element and Service Worker cache ID
+  appName: 'dfua16-pre',
+  // App theme is directory name in app/themes
+  appTheme: 'default-theme',
+  // App version from git is used for deploy task and frontend
+  appVersion: appVersion,
   // Autoprefixer
   autoprefixer: {
     // https://github.com/postcss/autoprefixer#browsers
@@ -32,15 +44,15 @@ module.exports = {
   // Deploy task
   deploy: {
     // Choose hosting
-    hosting: 'firebase', // or firebase, gcs, ssh, ghp
+    hosting: 'firebase', // or firebase, gcs, ssh
     // Firebase
     // Firebase requires Firebase Command Line Tools to be installed and configured.
     // For info on tool: https://www.firebase.com/docs/hosting/command-line-tool.html
     firebase: {
       env: {
-        development: 'hoverboard', // subdomain
-        staging:     'hoverboard',
-        production:  'hoverboard'
+        development: 'polymer-starter-kit-plus-dev', // subdomain
+        staging:     'polymer-starter-kit-plus-staging',
+        production:  'devfest-nl'
       }
     },
     // Google App Engine
@@ -99,11 +111,11 @@ module.exports = {
   pageSpeed: {
     key: '', // need uncomment in task
     nokey: true,
-    site: 'https://hoverboard.firebaseapp.com',
+    site: 'https://hoverboard-firebase.firebaseapp.com',
     strategy: 'mobile' // or desktop
   },
-  // App theme
-  theme: 'hoverboard-theme',
-  // App version from git
-  version: gitDescribe
+  // Service Worker
+  serviceWorker: {
+    cacheDisabled: false
+  }
 };

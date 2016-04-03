@@ -1,0 +1,69 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="blocks-container">
+
+  <template>
+    <style include="shared-styles">
+      :host {
+        @apply(--layout-vertical);
+        @apply(--layout-center-justified);
+      }
+
+      ::content > .block-item {
+        @apply(--layout-vertical);
+        position: relative;
+        transition: box-shadow 120ms ease-out;
+      }
+
+      ::content paper-button {
+        font-size: 0.7em;
+      }
+
+      ::content > .block-item > .content {
+        padding: var(--gutter-sm);
+        font-size: 1.5em;
+        overflow-y: auto;
+      }
+
+      @media (min-width: 961px) {
+        :host {
+          @apply(--layout-horizontal);
+        }
+        ::content > .block-item {
+          width: 445px;
+          height: 445px;
+        }
+        ::content > .block-item > .content {
+          @apply(--layout-fit);
+          padding: var(--gutter-md);
+        }
+
+        ::content > .block-item.shadow-hover:hover {
+          box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.25), 0 2px 3px 0 rgba(0, 0, 0, 0.25);
+        }
+        ::content > .block-item.shadow {
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)
+        }
+      }
+
+      @media (min-width: 1305px) and (min-height: 750px) {
+        ::content > .block-item {
+          width: 580px;
+          height: 580px;
+        }
+        ::content > .block-item > .content {
+          padding: var(--gutter-lg);
+        }
+      }
+
+    </style>
+
+    <content></content>
+
+  </template>
+
+  <script src="blocks-container.js"></script>
+
+</dom-module>

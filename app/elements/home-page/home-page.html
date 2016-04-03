@@ -1,0 +1,288 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+
+<link rel="import" href="../../bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+
+<link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+
+<link rel="import" href="../blocks-container/blocks-container.html">
+<link rel="import" href="../video-dialog/video-dialog.html">
+<link rel="import" href="../subscribe-dialog/subscribe-dialog.html">
+
+<dom-module id="home-page">
+
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        width: 100%;
+        height: 100%;
+        color: var(--primary-text-color);
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .block-item {
+        background: var(--primary-background-color);
+      }
+
+      .logo {
+        width: 180px;
+        min-height: 80px;
+      }
+
+      .sub-header {
+        margin-top: 10px;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 32px;
+      }
+
+      .subscribe-header {
+        margin: 10px 0 0;
+        font-size: 28px;
+        font-weight: 400;
+      }
+
+      .description {
+        font-size: 20px;
+        line-height: 28px;
+      }
+
+      .info-links {
+        text-align: right;
+      }
+
+      .primary {
+        background: var(--primary-color);
+        color: var(--text-primary-color);
+        transition: background 0.5s;
+      }
+
+      .primary[disabled] {
+        background: var(--disabled--color);
+      }
+
+      .spacer {
+        @apply(--layout-flex);
+      }
+
+      .pages {
+        width: 100%;
+        height: 100%;
+      }
+
+      .image-view {
+        @apply(--layout-fit);
+      }
+
+      .footer {
+        @apply(--layout-horizontal);
+        @apply(--layout-justified);
+        padding: calc(var(--gutter-sm) + 8px) var(--gutter-sm);
+        background: var(--primary-background-color);
+      }
+
+      .gdg-logo-wrapper {
+        @apply(--layout-vertical);
+        @apply(--layout-end-justified);
+      }
+
+      .gdg-logo {
+        width: 90px;
+        height: 33px;
+      }
+
+      .links {
+        @apply(--layout-vertical);
+        margin: 0;
+        padding: 0;
+      }
+
+      .links li {
+        margin-left: 32px;
+        display: inline-block;
+        text-align: right;
+      }
+
+      .links a {
+        @apply(--layout-self-center);
+        font-size: 0.85em;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: var(--primary-text-color);
+      }
+
+      @media (max-width: 960px) {
+        .logo {
+          margin-top: var(--gutter-sm);
+        }
+
+        .images-slider {
+          margin: var(--gutter-sm) 0 0;
+          min-height: 200px;
+        }
+
+        .links li:not(:first-of-type) {
+          margin-top: 24px;
+        }
+
+        .info-wrapper > * {
+          position: relative;
+        }
+      }
+
+      @media (max-width: 960px) and (min-height: 960px) {
+        .images-slider {
+          min-height: 500px;
+        }
+      }
+
+      @media (min-width: 961px) {
+        :host {
+          @apply(--layout-vertical);
+          @apply(--layout-justified);
+          @apply(--layout-fit);
+        }
+
+        .home-wrapper {
+          @apply(--layout-vertical);
+          @apply(--layout-center-center);
+          @apply(--layout-flex);
+          padding: var(--gutter-md);
+        }
+
+        blocks-container {
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+          overflow-y: auto;
+        }
+
+        .info {
+          @apply(--layout-vertical);
+          height: 100%;
+        }
+
+        .links {
+          @apply(--layout-horizontal);
+          @apply(--layout-center);
+        }
+
+        .footer {
+          padding: var(--gutter-md);
+        }
+      }
+    </style>
+
+    <div class="home-wrapper">
+      <blocks-container>
+
+        <div class="block-item">
+          <div class="content">
+            <neon-animated-pages class="pages info-wrapper" selected="{{selectedInfo}}"
+                                 entry-animation="fade-in-animation"
+                                 exit-animation="fade-out-animation" animate-initial-selection>
+              <neon-animatable>
+                <div class="info">
+                  <iron-image class="logo" src="/images/logo.svg" sizing="contain" alt="{$ title $}"></iron-image>
+                  <h2 class="sub-header">{$ home.dates $}<br>{$ home.place $}</h2>
+
+                  <!--<h3 class="motto">Inspire other people by your own example</h3>-->
+
+                  <p class="description">{$ home.description $}</p>
+                  <div class="spacer"></div>
+                  <div class="info-links">
+                    <paper-button on-tap="openVideoDialog">See how it was in 2015</paper-button>
+                    <paper-button class="primary" on-tap="openSubscribeForm" raised>Subscribe</paper-button>
+                  </div>
+                </div>
+              </neon-animatable>
+
+              <neon-animatable>
+                <form id="subscribeForm" class="info"
+                      action="[[mailchimp.action]]"
+                      method="post" name="mc-embedded-subscribe-form"
+                      target="_blank" novalidate>
+                  <h2 class="subscribe-header">Subscribe</h2>
+                  <p class="description">No spam, only the latest news and updates!</p>
+                  <paper-input label="First Name" always-float-label placeholder="Chuck" name="FNAME"></paper-input>
+                  <paper-input label="Last Name" always-float-label placeholder="Norris" name="LNAME"></paper-input>
+                  <paper-input type="email" label="E-mail" auto-validate always-float-label
+                               placeholder="gmail@chucknorris.com" invalid="{{invalid}}" name="EMAIL"></paper-input>
+                  <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                    <input type="text" name="[[mailchimp.name]]" tabindex="-1" value="">
+                  </div>
+                  <div class="spacer"></div>
+                  <div class="info-links">
+                    <paper-button on-tap="closeSubscribeForm">Cancel</paper-button>
+                    <paper-button class="primary" on-tap="subscribe" disabled="{{invalid}}">Submit</paper-button>
+                  </div>
+                </form>
+              </neon-animatable>
+            </neon-animated-pages>
+          </div>
+        </div>
+
+        <div class="block-item">
+          <neon-animated-pages id="blocks" class="pages images-slider" selected="0" entry-animation="fade-in-animation"
+                               exit-animation="fade-out-animation" animate-initial-selection>
+
+            {% for photo in home.photos %}
+            <neon-animatable>
+              <iron-image class="image-view" src="{$ photo $}" sizing="cover"></iron-image>
+            </neon-animatable>
+            {% endfor %}
+          </neon-animated-pages>
+        </div>
+
+      </blocks-container>
+    </div>
+
+    <div>
+      <div class="footer">
+        <div class="gdg-logo-wrapper">
+          <iron-image class="gdg-logo" src="/images/gdg-logo.svg" sizing="contain" alt="GDG Lviv"></iron-image>
+        </div>
+        <ul class="links">
+          {% for link in home.links %}
+          <li><a href="{$ link.url $}" target="_blank">{$ link.title $}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+
+    <video-dialog id="videoDialog" title="[[video.title]]" youtube-id="[[video.youtubeId]]"
+                  entry-animation="scale-up-animation"
+                  exit-animation="fade-out-animation" modal disable-controls></video-dialog>
+
+    <subscribe-dialog id="subscribeDialog" action="[[mailchimp.action]]" name="[[mailchimp.name]]"
+                      entry-animation="scale-up-animation"
+                      exit-animation="fade-out-animation" modal with-backdrop></subscribe-dialog>
+  </template>
+
+  <script src="home-page.js"></script>
+
+</dom-module>
