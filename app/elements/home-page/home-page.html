@@ -28,6 +28,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../blocks-container/blocks-container.html">
 <link rel="import" href="../video-dialog/video-dialog.html">
 <link rel="import" href="../subscribe-dialog/subscribe-dialog.html">
+<link rel="import" href="../partner-dialog/partner-dialog.html">
 
 <dom-module id="home-page">
 
@@ -216,9 +217,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <!--<h3 class="motto">Inspire other people by your own example</h3>-->
 
                   <p class="description">{$ home.description $}</p>
-                  <div class="spacer"></div>
                   <div class="info-links">
                     <paper-button on-tap="openVideoDialog">See how it was in 2015</paper-button>
+                  </div>
+                  <div class="spacer"></div>
+                  <div class="info-links">
+                    <paper-button class="primary" on-tap="openPartnerForm" raised>Become a partner</paper-button>
+                    <paper-button class="primary" on-tap="applyToSpeak" raised>Apply to speak</paper-button>
                     <paper-button class="primary" on-tap="openSubscribeForm" raised>Subscribe</paper-button>
                   </div>
                 </div>
@@ -244,6 +249,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <paper-button class="primary" on-tap="subscribe" disabled="{{invalid}}">Submit</paper-button>
                   </div>
                 </form>
+              </neon-animatable>
+
+              <neon-animatable>
+                <h2 class="subscribe-header">Become a partner</h2>
+                <p class="description">Please get in touch with the organization at <a href="mailto:info@devfest.nl?subject=Partnership with GDG DevFest The Netherlands 2016">info@devfest.nl</a>.</p>
+                <div class="spacer"></div>
+                <div class="info-links">
+                  <paper-button on-tap="closePartnerForm">Close</paper-button>
+                </div>
               </neon-animatable>
             </neon-animated-pages>
           </div>
@@ -285,6 +299,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <subscribe-dialog id="subscribeDialog" action="[[mailchimp.action]]" name="[[mailchimp.name]]"
                       entry-animation="scale-up-animation"
                       exit-animation="fade-out-animation" modal with-backdrop></subscribe-dialog>
+
+    <partner-dialog id="partnerDialog"
+                      entry-animation="scale-up-animation"
+                      exit-animation="fade-out-animation" modal with-backdrop></partner-dialog>
   </template>
 
   <script src="home-page.js"></script>

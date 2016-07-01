@@ -33,10 +33,10 @@ module.exports = {
       //   title: 'Become a speaker',
       //   url: 'https://docs.google.com/forms/d/1rNGi2oPOAZ84mKkL5ccDYUEp93cO0RJ4GZZ-NTmtkYg/viewform'
       // },
-      {
-        title: 'Become a partner',
-        url: 'mailto:info@devfest.nl?subject=Partnership with GDG DevFest The Netherlands 2016'
-      },
+      // {
+      //   title: 'Become a partner',
+      //   url: 'mailto:info@devfest.nl?subject=Partnership with GDG DevFest The Netherlands 2016'
+      // },
       {
         title: 'info@devfest.nl',
         url: 'mailto:info@devfest.nl'

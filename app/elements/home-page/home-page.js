@@ -31,6 +31,22 @@ class HomePage {
     this.$.videoDialog.open();
   }
 
+  applyToSpeak() {
+    window.open('https://docs.google.com/a/dutchaug.org/forms/d/1iBNcANj7clqlhTsJCphjKxwxqJuZGE-U7Pmj37OCgP4/viewform', '_blank');
+  }
+
+  openPartnerForm() {
+    if (window.innerWidth < 960) {
+      this.$.partnerDialog.open();
+    } else {
+      this.selectedInfo = 2;
+    }
+  }
+
+  closePartnerForm() {
+    this.selectedInfo = 0;
+  }
+
   subscribe() {
     this.$.subscribeForm.submit();
     this.closeSubscribeForm();
