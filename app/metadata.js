@@ -1,18 +1,18 @@
 module.exports = {
-  title: 'GDG DevFest Netherlands 2016',
+  title: 'GDG DevFest The Netherlands 2016',
   description: 'The biggest Google Tech related event in The Netherlands carefully crafted for you by the Dutch GDG communities! Awesome speakers, great after party and lot\'s of fun!',
   charset: 'UTF-8',
   lang: 'en',
   // Add to homescreen for Chrome on Android
-  applicationName: 'GDG DevFest Netherlands 2016',
+  applicationName: 'GDG DevFest The Netherlands 2016',
   // Add to homescreen for Safari on iOS
-  appleMobileWebAppTitle: 'GDG DevFest Netherlands 2016',
+  appleMobileWebAppTitle: 'GDG DevFest The Netherlands 2016',
   // Google Analytics Tracking ID
-  googleAnalyticsTrackingId: 'UA-66658291-1',
+  googleAnalyticsTrackingId: 'UA-66658291-2',
 
   home: {
     dates: 'October 8, 2016',
-    place: 'Amsterdam, Netherlands',
+    place: 'Amsterdam, The Netherlands',
     description: 'The biggest Google Tech related event in The Netherlands carefully crafted for you by the Dutch GDG communities! Awesome speakers, great after party and lot\'s of fun!',
     photos: [
       '/images/background/2015_1.jpg',
@@ -35,7 +35,7 @@ module.exports = {
       // },
       {
         title: 'Become a partner',
-        url: 'mailto:info@devfest.nl?subject=Partnership with GDG DevFest Netherlands 2016'
+        url: 'mailto:info@devfest.nl?subject=Partnership with GDG DevFest The Netherlands 2016'
       },
       {
         title: 'info@devfest.nl',
