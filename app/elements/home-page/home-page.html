@@ -46,6 +46,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-decoration: none;
       }
 
+      paper-button {
+        margin-bottom: 12px;
+      }
+
       .block-item {
         background: var(--primary-background-color);
       }
@@ -75,7 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .openVideo {
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 8px;
       }
 
       .openVideoIcon {
@@ -164,6 +168,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         .info-wrapper > * {
           position: relative;
         }
+
+        .footer {
+          flex-direction: column;
+        }
       }
 
       @media (max-width: 960px) and (min-height: 960px) {
@@ -205,8 +213,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           @apply(--layout-center);
         }
 
+        .images-slider-wrapper {
+          width: 420px;
+        }
+
         .footer {
           padding: var(--gutter-md);
+        }
+      }
+
+      @media (min-width: 1305px) and (min-height: 750px) {
+        .images-slider-wrapper {
+          width: 560px;
         }
       }
     </style>
@@ -276,7 +294,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
         </div>
 
-        <div class="block-item">
+        <div class="block-item images-slider-wrapper">
           <neon-animated-pages id="blocks" class="pages images-slider" selected="0" entry-animation="fade-in-animation"
                                exit-animation="fade-out-animation" animate-initial-selection>
 
@@ -294,7 +312,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div>
       <div class="footer">
         <div class="gdg-logo-wrapper">
-          <iron-image class="gdg-logo" src="/images/gdg-logo.svg" sizing="contain" alt="GDG Lviv"></iron-image>
+          <iron-image class="gdg-logo" src="/images/gdg-logo.svg" sizing="contain" alt="GDG The Dutch Android User Group"></iron-image>
         </div>
         <ul class="links">
           {% for link in home.links %}

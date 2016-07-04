@@ -1,6 +1,6 @@
 module.exports = {
   title: 'GDG DevFest The Netherlands 2016',
-  description: 'The biggest Google Tech related event in The Netherlands carefully crafted for you by the Dutch GDG communities! Awesome speakers, great after party and lot\'s of fun!',
+  description: 'The biggest Google Tech related event in The Netherlands, carefully crafted for you by the Dutch GDG communities! Awesome speakers, great after party and lot\'s of fun!',
   charset: 'UTF-8',
   lang: 'en',
   // Add to homescreen for Chrome on Android
@@ -13,7 +13,7 @@ module.exports = {
   home: {
     dates: 'October 8, 2016',
     place: 'Amsterdam, The Netherlands',
-    description: 'The biggest Google Tech related event in The Netherlands carefully crafted for you by the Dutch GDG communities! Awesome speakers, great after party and lot\'s of fun!',
+    description: 'The biggest Google Tech related event in The Netherlands, carefully crafted for you by the Dutch GDG communities! Awesome speakers, great after party and lot\'s of fun!',
     photos: [
       '/images/background/2015_1.jpg',
       '/images/background/2015_2.jpg',
