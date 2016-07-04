@@ -33,6 +33,20 @@
         background: var(--disabled--color);
       }
 
+      .info {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        right: 24px;
+        bottom: 8px;
+        left: 24px;
+      }
+
+      .spacer {
+        @apply(--layout-flex);
+      }
+
     </style>
     <paper-dialog-scrollable>
       <form id="subscribeForm" class="info"
@@ -41,13 +55,14 @@
             target="_blank" novalidate>
         <h2 class="subscribe-header">Subscribe</h2>
         <p class="description">No spam, only the latest news and updates!</p>
-        <paper-input label="First Name" always-float-label placeholder="Chuck" name="FNAME"></paper-input>
-        <paper-input label="Last Name" always-float-label placeholder="Norris" name="LNAME"></paper-input>
+        <paper-input label="First Name" always-float-label name="FNAME"></paper-input>
+        <paper-input label="Last Name" always-float-label name="LNAME"></paper-input>
         <paper-input type="email" label="E-mail" auto-validate always-float-label
-                     placeholder="gmail@chucknorris.com" invalid="{{invalid}}" name="EMAIL"></paper-input>
+                     invalid="{{invalid}}" name="EMAIL"></paper-input>
         <div style="position: absolute; left: -5000px;" aria-hidden="true">
           <input type="text" name="[[name]]" tabindex="-1" value="">
         </div>
+        <div class="spacer"></div>
         <div class="buttons">
           <paper-button dialog-dismiss>Cancel</paper-button>
           <paper-button dialog-confirm class="primary" on-tap="subscribe" disabled="{{invalid}}">Submit</paper-button>

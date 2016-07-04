@@ -73,6 +73,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         line-height: 28px;
       }
 
+      .openVideo {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .openVideoIcon {
+        height: 1em;
+        margin-right: 0.5em;
+      }
+
       .info-links {
         text-align: right;
       }
@@ -217,8 +227,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <!--<h3 class="motto">Inspire other people by your own example</h3>-->
 
                   <p class="description">{$ home.description $}</p>
-                  <div class="info-links">
-                    <paper-button on-tap="openVideoDialog">See how it was in 2015</paper-button>
+                  <div class="openVideo">
+                    <paper-button on-tap="openVideoDialog"><img src="/images/YouTube-social-icon_red_48px.png" alt="" class="openVideoIcon"></img>See how it was in 2015</paper-button>
                   </div>
                   <div class="spacer"></div>
                   <div class="info-links">
@@ -231,15 +241,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
               <neon-animatable>
                 <form id="subscribeForm" class="info"
+                      class="info"
                       action="[[mailchimp.action]]"
                       method="post" name="mc-embedded-subscribe-form"
                       target="_blank" novalidate>
                   <h2 class="subscribe-header">Subscribe</h2>
                   <p class="description">No spam, only the latest news and updates!</p>
-                  <paper-input label="First Name" always-float-label placeholder="Chuck" name="FNAME"></paper-input>
-                  <paper-input label="Last Name" always-float-label placeholder="Norris" name="LNAME"></paper-input>
+                  <paper-input label="First Name" always-float-label name="FNAME"></paper-input>
+                  <paper-input label="Last Name" always-float-label name="LNAME"></paper-input>
                   <paper-input type="email" label="E-mail" auto-validate always-float-label
-                               placeholder="gmail@chucknorris.com" invalid="{{invalid}}" name="EMAIL"></paper-input>
+                               invalid="{{invalid}}" name="EMAIL"></paper-input>
                   <div style="position: absolute; left: -5000px;" aria-hidden="true">
                     <input type="text" name="[[mailchimp.name]]" tabindex="-1" value="">
                   </div>
@@ -252,11 +263,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </neon-animatable>
 
               <neon-animatable>
-                <h2 class="subscribe-header">Become a partner</h2>
-                <p class="description">Please get in touch with the organization at <a href="mailto:info@devfest.nl?subject=Partnership with GDG DevFest The Netherlands 2016">info@devfest.nl</a>.</p>
-                <div class="spacer"></div>
-                <div class="info-links">
-                  <paper-button on-tap="closePartnerForm">Close</paper-button>
+                <div class="info">
+                  <h2 class="subscribe-header">Become a partner</h2>
+                  <p class="description">Please get in touch with the organization at <a href="mailto:info@devfest.nl?subject=Partnership with GDG DevFest The Netherlands 2016">info@devfest.nl</a>.</p>
+                  <div class="spacer"></div>
+                  <div class="info-links">
+                    <paper-button on-tap="closePartnerForm">Close</paper-button>
+                  </div>
                 </div>
               </neon-animatable>
             </neon-animated-pages>
