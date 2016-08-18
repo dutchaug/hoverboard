@@ -26,7 +26,7 @@ if (window.location.port === '') {  // if production
   page.base(baseUrl.replace(/\/$/, ''));
 }
 
-let app = document.getElementById('app');
+var app = document.getElementById('app');
 
 window.addEventListener('upgraded', () => {
   app.baseUrl = baseUrl;
@@ -42,24 +42,9 @@ function once(node, event, fn, args) {
   node.addEventListener(event, listener, false);
 }
 
-// Middleware
-function scrollToTop(ctx, next) {
-  function setData() {
-    app.scrollPageToTop();
-  }
-
-  // Check if element prototype has not been upgraded yet
-  if (!app.upgraded) {
-    once(app, 'upgraded', setData);
-  } else {
-    setData();
-  }
-  next();
-}
-
 function closeDrawer(ctx, next) {
   function setData() {
-    //app.closeDrawer();
+    app.closeDrawer();
   }
 
   // Check if element prototype has not been upgraded yet
@@ -69,23 +54,17 @@ function closeDrawer(ctx, next) {
     setData();
   }
   next();
-}
-
-function setFocus(selected){
-  //document.querySelector('[data-route="' + selected + '"]').focus();
 }
 
 // Routes
-page('*', scrollToTop, closeDrawer, (ctx, next) => {
+page('*', closeDrawer, (ctx, next) => {
   next();
 });
 
 function setHomePage() {
   function setData() {
     app.route = 'home';
-    app.pageTitle = 'Polymer';
-    app.pageSubTitle = 'The future of the web today';
-    setFocus(app.route);
+    app.scrollPageToTop();
   }
 
   // Check if element prototype has not been upgraded yet
@@ -104,12 +83,10 @@ page(baseUrl, () => {
   setHomePage();
 });
 
-page('/users', () => {
+page('/blog', () => {
   function setData() {
-    app.route = 'users';
-    app.pageTitle = 'Users';
-    app.pageSubTitle = 'This is the users section';
-    setFocus(app.route);
+    app.route = 'blog';
+    app.scrollPageToTop();
   }
 
   // Check if element prototype has not been upgraded yet
@@ -120,13 +97,11 @@ page('/users', () => {
   }
 });
 
-page('/users/:name', ctx => {
+page('/blog/:id', ctx => {
   function setData() {
-    app.route = 'user-info';
-    app.pageTitle = 'User information';
-    app.pageSubTitle = 'This is the users section';
+    app.route = 'post';
     app.params = ctx.params;
-    setFocus(app.route);
+    app.scrollPageToTop();
   }
 
   // Check if element prototype has not been upgraded yet
@@ -137,12 +112,10 @@ page('/users/:name', ctx => {
   }
 });
 
-page('/contact', () => {
+page('/speakers', () => {
   function setData() {
-    app.route = 'contact';
-    app.pageTitle = 'Contact';
-    app.pageSubTitle = 'This is the contact section';
-    setFocus(app.route);
+    app.route = 'speakers';
+    app.scrollPageToTop();
   }
 
   // Check if element prototype has not been upgraded yet
@@ -153,12 +126,38 @@ page('/contact', () => {
   }
 });
 
-page('/settings', () => {
+page('/speakers/:id', ctx => {
   function setData() {
-    app.route = 'settings';
-    app.pageTitle = 'Settings';
-    app.pageSubTitle = 'Edit your settings';
-    setFocus(app.route);
+    app.route = 'speakers';
+    app.params = ctx.params;
+  }
+
+  // Check if element prototype has not been upgraded yet
+  if (!app.upgraded) {
+    once(app, 'upgraded', setData);
+  } else {
+    setData();
+  }
+});
+
+page('/schedule', () => {
+  function setData() {
+    app.route = 'schedule';
+    app.scrollPageToTop();
+  }
+
+  // Check if element prototype has not been upgraded yet
+  if (!app.upgraded) {
+    once(app, 'upgraded', setData);
+  } else {
+    setData();
+  }
+});
+
+page('/schedule/:id', ctx => {
+  function setData() {
+    app.route = 'schedule';
+    app.params = ctx.params;
   }
 
   // Check if element prototype has not been upgraded yet
@@ -172,9 +171,6 @@ page('/settings', () => {
 // 404
 page('*', ctx => {
   function setData() {
-    let url = ctx.path.substr(1);
-    app.$.confirmToast.text = `Can't find: ${url}. Redirected you to Home Page`;
-    app.$.confirmToast.show();
     page.redirect(baseUrl);
   }
 

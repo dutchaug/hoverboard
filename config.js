@@ -8,12 +8,6 @@ try {
 }
 
 module.exports = {
-  // App name is used for iron-localstorage element and Service Worker cache ID
-  appName: 'dfnl16-pre',
-  // App theme is directory name in app/themes
-  appTheme: 'default-theme',
-  // App version from git is used for deploy task and frontend
-  appVersion: appVersion,
   // Autoprefixer
   autoprefixer: {
     // https://github.com/postcss/autoprefixer#browsers
@@ -44,13 +38,15 @@ module.exports = {
   // Deploy task
   deploy: {
     // Choose hosting
-    hosting: 'firebase', // or firebase, gcs, ssh
+    hosting: 'firebase', // or firebase, gcs, ssh, ghp
     // Firebase
     // Firebase requires Firebase Command Line Tools to be installed and configured.
     // For info on tool: https://www.firebase.com/docs/hosting/command-line-tool.html
     firebase: {
       env: {
-        production:  'devfest-nl'
+        development: 'hoverboard', // subdomain
+        staging:     'hoverboard',
+        production:  'hoverboard'
       }
     },
     // Google App Engine
@@ -58,6 +54,8 @@ module.exports = {
     // For info on SDK: https://cloud.google.com/sdk/
     gae: {
       env: {
+        development: 'polymer-starter-kit-plus-dev', // project ID
+        staging:     'polymer-starter-kit-plus-staging',
         production:  'polymer-starter-kit-plus'
       },
       // Promote the deployed version to receive all traffic.
@@ -107,7 +105,7 @@ module.exports = {
   pageSpeed: {
     key: '', // need uncomment in task
     nokey: true,
-    site: 'https://hoverboard-firebase.firebaseapp.com',
+    site: 'https://hoverboard.firebaseapp.com',
     strategy: 'mobile' // or desktop
   },
   // App theme
