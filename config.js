@@ -1,5 +1,5 @@
 var execSync = require('child_process').execSync,
-    appVersion = null;
+  appVersion = null;
 
 try {
   appVersion = execSync('git describe --tags').toString().replace(/(\r\n|\n|\r)/gm, '');
@@ -110,8 +110,8 @@ module.exports = {
     site: 'https://hoverboard-firebase.firebaseapp.com',
     strategy: 'mobile' // or desktop
   },
-  // Service Worker
-  serviceWorker: {
-    cacheDisabled: false
-  }
+  // App theme
+  theme: 'hoverboard-theme',
+  // App version from git
+  version: appVersion
 };
