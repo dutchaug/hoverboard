@@ -9,7 +9,7 @@ try {
 
 module.exports = {
   // App name is used for iron-localstorage element and Service Worker cache ID
-  appName: 'dfua16-pre',
+  appName: 'dfnl16-pre',
   // App theme is directory name in app/themes
   appTheme: 'default-theme',
   // App version from git is used for deploy task and frontend
@@ -50,8 +50,6 @@ module.exports = {
     // For info on tool: https://www.firebase.com/docs/hosting/command-line-tool.html
     firebase: {
       env: {
-        development: 'polymer-starter-kit-plus-dev', // subdomain
-        staging:     'polymer-starter-kit-plus-staging',
         production:  'devfest-nl'
       }
     },
@@ -60,8 +58,6 @@ module.exports = {
     // For info on SDK: https://cloud.google.com/sdk/
     gae: {
       env: {
-        development: 'polymer-starter-kit-plus-dev', // project ID
-        staging:     'polymer-starter-kit-plus-staging',
         production:  'polymer-starter-kit-plus'
       },
       // Promote the deployed version to receive all traffic.
