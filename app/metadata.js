@@ -1,6 +1,6 @@
 module.exports = {
   title: 'GDG DevFest The Netherlands 2016',
-  description: 'The biggest Google Tech related event in The Netherlands carefully crafted for you by the Dutch GDG communities! Awesome speakers, great after party and lot\'s of fun!',
+  description: 'The biggest Google Tech related event in The Netherlands carefully crafted for you by the Dutch GDG communities! Awesome speakers, great after party and lots of fun!',
   charset: 'UTF-8',
   lang: 'en',
   // Add to homescreen for Chrome on Android
@@ -13,7 +13,7 @@ module.exports = {
   home: {
     dates: 'October 8, 2016',
     place: 'Amsterdam, The Netherlands',
-    description: 'The biggest Google Tech related event in The Netherlands carefully crafted for you by the Dutch GDG communities! Awesome speakers, great after party and lot\'s of fun!',
+    description: 'The biggest Google Tech related event in The Netherlands carefully crafted for you by the Dutch GDG communities! Awesome speakers, great after party and lots of fun!',
     photos: [
       '/images/background/2015_1.jpg',
       '/images/background/2015_2.jpg',
@@ -24,9 +24,36 @@ module.exports = {
       '/images/background/2015_7.jpg',
       '/images/background/2015_8.jpg'
     ],
+    partners: [
+      {
+        name: 'Google Developers',
+        url: 'https://developers.google.com/',
+        image: 'google-developers.svg'
+      },
+      {
+        name: 'Triple',
+        url: 'https://www.wearetriple.com/',
+        image: 'triple.png'
+      },
+      {
+        name: 'Albert Heijn',
+        url: 'https://ah.nl/',
+        image: 'ah.png'
+      },
+      {
+        name: 'M2Mobi',
+        url: 'https://m2mobi.com/',
+        image: 'm2mobi.svg'
+      },
+      {
+        name: 'Darwin Recruitment',
+        url: 'http://www.darwinrecruitment.com/nl/',
+        image: 'darwin.png'
+      },
+    ],
     links: [
       {
-        title: 'GDG DevFest 2015',
+        title: 'GDG DevFest NL 2015',
         url: 'http://2015.devfest.nl'
       },
       // {
