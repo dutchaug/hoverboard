@@ -42,7 +42,7 @@ module.exports = {
       },
       {
         name: 'M2Mobi',
-        url: 'https://m2mobi.com/',
+        url: 'https://www.m2mobi.com/',
         image: 'm2mobi.svg'
       },
       {
