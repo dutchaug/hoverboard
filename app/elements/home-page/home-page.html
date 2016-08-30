@@ -46,6 +46,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-decoration: none;
       }
 
+      paper-button {
+        margin: 8px 4px;
+      }
+
       .block-item {
         background: var(--primary-background-color);
       }
@@ -84,7 +88,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .info-links {
-        text-align: right;
+        text-align: center;
       }
 
       .primary {
@@ -110,10 +114,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-fit);
       }
 
+      .partners {
+        padding: 16px 0;
+        background: var(--primary-background-color-alpha);
+        text-align: center;
+      }
+
+      .partners-wrapper {
+        @apply(--layout-vertical);
+        @apply(--layout-end-justified);
+        float: left;
+      }
+
+      .partners .links {
+        display: inline-block;
+      }
+
+      .partners .links li {
+        margin: 4px 8px;
+      }
+
       .footer {
         @apply(--layout-horizontal);
         @apply(--layout-justified);
-        padding: calc(var(--gutter-sm) + 8px) var(--gutter-sm);
+        padding-top: var(--gutter-sm);
+        padding-bottom: var(--gutter-sm);
         background: var(--primary-background-color);
       }
 
@@ -206,7 +231,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
         .footer {
-          padding: var(--gutter-md);
+          padding-left: var(--gutter-md);
+          padding-right: var(--gutter-md);
         }
       }
     </style>
@@ -224,17 +250,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <iron-image class="gdg-devfest-logo" src="/images/gdg-devfest-logo.svg" sizing="contain" alt="{$ title $}"></iron-image>
                   <h2 class="sub-header">{$ home.dates $}<br>{$ home.place $}</h2>
 
-                  <!--<h3 class="motto">Inspire other people by your own example</h3>-->
+                  <!-- <h3 class="motto">Inspire other people by your own example</h3> -->
+
+                  <div class="spacer"></div>
+                  <div class="info-links">
+                    <paper-button class="primary" on-tap="getTickets" raised>Tickets</paper-button>
+                    <paper-button class="primary" on-tap="applyToSpeak" raised>Apply to speak</paper-button>
+                    <paper-button class="primary" on-tap="openSubscribeForm" raised>Subscribe to updates</paper-button>
+                  </div>
 
                   <p class="description">{$ home.description $}</p>
                   <div class="openVideo">
                     <paper-button on-tap="openVideoDialog"><img src="/images/YouTube-social-icon_red_48px.png" alt="" class="openVideoIcon"></img>See how it was in 2015</paper-button>
-                  </div>
-                  <div class="spacer"></div>
-                  <div class="info-links">
-                    <paper-button class="primary" on-tap="openPartnerForm" raised>Become a partner</paper-button>
-                    <paper-button class="primary" on-tap="applyToSpeak" raised>Apply to speak</paper-button>
-                    <paper-button class="primary" on-tap="openSubscribeForm" raised>Subscribe</paper-button>
                   </div>
                 </div>
               </neon-animatable>
@@ -292,9 +319,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </div>
 
     <div>
+      <div class="partners">
+        <!-- <div class="partners-wrapper">Our partners:</div> -->
+        <ul class="links">
+          {% for partner in home.partners %}
+          <li><a href="{$ partner.url $}" target="_blank"><iron-image class="gdg-logo" src="/images/partners/{$ partner.image $}" sizing="contain" alt="{$ partner.name $}"></iron-image></a></li>
+          {% endfor %}
+        </ul>
+      </div>
       <div class="footer">
         <div class="gdg-logo-wrapper">
-          <iron-image class="gdg-logo" src="/images/gdg-logo.svg" sizing="contain" alt="GDG Lviv"></iron-image>
+          <a href="http://dutchaug.org" target="_blank"><iron-image class="gdg-logo" src="/images/gdg-logo.svg" sizing="contain" alt="GDG The Dutch Android User Group"></iron-image></a>
         </div>
         <ul class="links">
           {% for link in home.links %}

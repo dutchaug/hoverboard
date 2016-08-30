@@ -35,6 +35,10 @@ class HomePage {
     window.open('https://docs.google.com/a/dutchaug.org/forms/d/1iBNcANj7clqlhTsJCphjKxwxqJuZGE-U7Pmj37OCgP4/viewform', '_blank');
   }
 
+  getTickets() {
+      window.open('https://devfestnl16.eventbrite.com', '_blank');
+  }
+
   openPartnerForm() {
     if (window.innerWidth < 960) {
       this.$.partnerDialog.open();
