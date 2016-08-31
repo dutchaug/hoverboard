@@ -36,7 +36,7 @@ class HomePage {
   }
 
   getTickets() {
-      window.open('https://devfestnl16.eventbrite.com', '_blank');
+      window.open('https://devfestnl16.eventbrite.com/?aff=www', '_blank');
   }
 
   openPartnerForm() {
